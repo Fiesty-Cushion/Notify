@@ -3,7 +3,7 @@ from datetime import datetime, date, timedelta
 from bs4 import BeautifulSoup
 from files import *
 from webhook import *
-
+import os
 
 year = datetime.now().strftime('%Y')
 month = datetime.now().strftime('%m')
@@ -35,6 +35,7 @@ def scraper():
 
 args = scraper()
 if(args != None):
+    #os.system("ls")
     titles = args[0]
     links = args[1]
 
