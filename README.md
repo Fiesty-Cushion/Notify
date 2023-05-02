@@ -22,6 +22,6 @@ Make sure to change the `webhookURL` in webhook.py.
 pip install -r requirements.txt
 python main.py
 ```
-**Note: It uses python 10 so make sure that's the interpreter before executing.**
+_Note: It uses python 10 so make sure that's the interpreter before executing._
 
 ~~You still have to run the script everyday but that does sound like a YOU problem~~ 
