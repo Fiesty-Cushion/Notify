@@ -13,7 +13,6 @@ mkdir notice-grabr
 cd notice-grabr
 mkdir docs
 mkdir images
-git init
 git clone https://github.com/Fiesty-Cushion/notice-grabr.git
 ```
 #### Execution
