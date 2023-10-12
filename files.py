@@ -8,10 +8,10 @@ def create_files(url, filename):
     with open(f"docs/{filename}", 'wb') as pdf:
         pdf.write(response.content)
     pdf.close()
-    images = pdf2image.convert_from_path(f"docs/{filename}", poppler_path=r"poppler\Library\bin")
+
+    images = pdf2image.convert_from_path(f"docs/{filename}")
     for i in range(len(images)):   
          images[i].save('images/'+'page'+ str(i) +'.jpg', 'JPEG')
-
 
 
 def del_files():
