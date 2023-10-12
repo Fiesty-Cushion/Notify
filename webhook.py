@@ -1,7 +1,7 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import os
 
-webhookURL = "<WEBHOOK_URL>"
+webhookURL = ""
 
 def embedWebHook(fileURL, title):
     imgDir = os.fsencode("images")
@@ -41,8 +41,8 @@ def embedWebHook(fileURL, title):
 def imgWebhook(fileURL, title):
     webhook = DiscordWebhook(url=webhookURL)
     embed = DiscordEmbed(title="Notice!" ,description=f"**{title}**", color='0xDC143C', url=fileURL)
-    embed.set_footer(text="Check official website for more details.", icon_url="https://i.imgur.com/0HOdGQE.jpg")
     embed.set_image(url=fileURL)
+    embed.set_footer(text="Check official website for more details.", icon_url="https://i.imgur.com/0HOdGQE.jpg")
     webhook.add_embed(embed)
 
     response = webhook.execute()
