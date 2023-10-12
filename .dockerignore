@@ -1,0 +1,8 @@
+# Exclude virtual environment folders
+venv/
+.venv/
+
+# Exclude development and build files
+*.pyc
+__pycache__/
+.git/
