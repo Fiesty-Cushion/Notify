@@ -3,12 +3,12 @@ from datetime import datetime, date, timedelta
 from bs4 import BeautifulSoup
 from files import *
 from webhook import *
-import os
+from database import *
 
 year = datetime.now().strftime('%Y')
 month = datetime.now().strftime('%m')
-yesterday =  str(date.today() - timedelta(days=1)).split('-')[-1]
-url = f"https://pcampus.edu.np/{year}/{month}/{yesterday}/"
+today = datetime.now().strftime('%d')
+url = f"https://pcampus.edu.np/{year}/{month}/{today}/"
 
 def scraper():
     page = requests.get(url)
@@ -28,33 +28,49 @@ def scraper():
 
         files_html = soup.find_all('div', class_="entry-content")
         for file in files_html:
-            link = file.find('a').get('href')
+            link = file.find('a').get('href') if file.find('a') != None else url
             files_link.append(link)
 
     return(titles, files_link)
 
 args = scraper()
 if(args != None):
-    #os.system("ls")
     titles = args[0]
-    links = args[1]
+    links = args[1]    
 
     if (links != None):
+        readFromDB()
+
         for index, link in enumerate(links):
             filename = link.split("/")[-1]
+
+            # filename is present in database then just continue
+            if (titles[index] in open("sent_notice.txt", "r").read()):
+                continue
+
+            # sends pdf embedded message with preview images
             if (filename.__contains__(".pdf")):
                 create_files(link, filename)
                 status = embedWebHook(link, titles[index])
                 if (status != 200):
                     continue
+                addToDB(titles[index])
+
+            # sends image embedded message
             elif (filename.__contains__(".jpg") or filename.__contains__(".jpeg")):
-                status = imgWebhook(url, titles[index])
+                status = imgWebhook(link, titles[index])
                 if (status != 200):
                     continue
+                addToDB(titles[index])
+
+            # sends text embedded message
             else:
                 status = textWebhook(url, titles[index])
                 if (status != 200):
                     continue
+                addToDB(titles[index])
+
+            # deletes files from docs and images folder
             del_files()
 
-    
+updateDB()
