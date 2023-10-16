@@ -36,5 +36,6 @@ Pulchowk Notices are published to `https://pcampus.edu.np/{year}/{month}/{day}/`
 If you wish to host this app to azure, [azure-functions](https://azure.microsoft.com/en-us/products/functions) is the best approach. 
 1. Create a Container Instance that pulls image from the Docker Hub. (You can build the docker image and push it to your Docker Hub repo)
 2. Create a Blob Storage, and provide the `connection_string`, `container_name` and `blob_name` to `database.py`
-3. In Visual Studio, create a `C#` project with `azure-function` template, and use the code from this gist.
-4. Publish the azure-function to azure cloud and enjoy! 
+3. Create an Entriprise Application in Microsoft Entra ID from Azure Portal. Make sure to give this app `collaborator` role at least in the resource group that you wish to publish the app.
+4. In Visual Studio, create a `C#` project with `azure-function` template, and use the code from this [gist](https://gist.github.com/Fiesty-Cushion/679d29eecf261d5260691872fdaad5b0).
+5. Publish the azure-function to azure cloud and enjoy! 
