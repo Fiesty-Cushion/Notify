@@ -1,4 +1,4 @@
-# notice-grabr
+# notify
 
 **A handy tool to receive Pulchowk Notices in your discord server.**
 
@@ -9,8 +9,8 @@ is aimed at solving that hassle and let it do that part for you.
 ## Installation
 #### File Structure
 ```
-mkdir notice-grabr
-cd notice-grabr
+mkdir notify
+cd notify
 mkdir docs
 mkdir images
 git clone https://github.com/Fiesty-Cushion/notice-grabr.git
@@ -21,6 +21,9 @@ Make sure to change the `webhookURL` in webhook.py.
 pip install -r requirements.txt
 python main.py
 ```
-_Note: It uses python 10 so make sure that's the interpreter before executing._
 
-~~You still have to run the script everyday but that does sound like a YOU problem~~ 
+#### Use Docker Image
+```
+docker build -t notify .
+docker run notify
+```
