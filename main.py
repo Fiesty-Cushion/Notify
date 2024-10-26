@@ -1,9 +1,11 @@
+from datetime import date, datetime, timedelta
+
 import requests
-from datetime import datetime, date, timedelta
 from bs4 import BeautifulSoup
+
+from database import *
 from files import *
 from webhook import *
-from database import *
 
 year = datetime.now().strftime('%Y')
 month = datetime.now().strftime('%m')
@@ -17,28 +19,27 @@ def scraper():
     titles = []
     files_link = []
 
-    if(body != None):
+    if(body):
         return
     
-    if(body == None):
-        titles_html = soup.find_all('h2', class_="entry-title")
-        for title in titles_html:
-            title = title.find('a').get_text()
-            titles.append(title)
+    titles_html = soup.find_all('h2', class_="entry-title")
+    for title in titles_html:
+        title = title.find('a').get_text()
+        titles.append(title)
 
-        files_html = soup.find_all('div', class_="entry-content")
-        for file in files_html:
-            link = file.find('a').get('href') if file.find('a') != None else url
-            files_link.append(link)
+    files_html = soup.find_all('div', class_="entry-content")
+    for file in files_html:
+        link = file.find('a').get('href') if file.find('a') != None else url
+        files_link.append(link)
 
     return(titles, files_link)
 
 args = scraper()
-if(args != None):
+if(args):
     titles = args[0]
     links = args[1]    
 
-    if (links != None):
+    if (links):
         readFromDB()
 
         for index, link in enumerate(links):
