@@ -19,7 +19,7 @@ def scraper():
     titles = []
     files_link = []
 
-    if(body):
+    if(not body):
         return
     
     titles_html = soup.find_all('h2', class_="entry-title")
